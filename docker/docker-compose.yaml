@@ -1,0 +1,16 @@
+version: "3.7"
+services:
+
+  cdn-nft:
+    image: cdn-nft
+    container_name: cdn-nft
+    build:
+      context: ..
+      dockerfile: ./docker/cdn.Dockerfile
+    ports: 
+      - "7654:7654"
+    networks: 
+      - cdn
+
+networks:
+  cdn: 
