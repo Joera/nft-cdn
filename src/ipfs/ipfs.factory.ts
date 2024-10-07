@@ -1,10 +1,11 @@
 import { env } from "@/common/utils/envConfig";
 import FormData from "form-data";
+// @ts-ignore
 import fetch from "node-fetch";
 
 export const getJson = async (cid: string): Promise<any> => {
   return new Promise((resolve, reject) => {
-    fetch(`${env.IPFS_GATEWAY}/api/v0/cat?arg=${cid}`, {
+    fetch(`${env.IPFS_RPC}/api/v0/cat?arg=${cid}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -24,7 +25,7 @@ export const getJson = async (cid: string): Promise<any> => {
 
 export const getDag = async (cid: string): Promise<any> => {
   return new Promise((resolve, reject) => {
-    fetch(`${env.IPFS_GATEWAY}/api/v0/dag/get?arg=${cid}`, {
+    fetch(`${env.IPFS_RPC}/api/v0/dag/get?arg=${cid}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -44,7 +45,7 @@ export const getDag = async (cid: string): Promise<any> => {
 
 export const getImage = async (cid: string) => {
   console.log(`fetching: ${cid}`);
-  const response = await fetch(`${env.IPFS_GATEWAY}/api/v0/cat?arg=${cid}`, {
+  const response = await fetch(`${env.IPFS_RPC}/api/v0/cat?arg=${cid}`, {
     method: "POST",
   });
   if (!response.ok) {
@@ -63,7 +64,7 @@ export const uploadImage = async (image: Buffer) => {
     contentType: "image/png",
   });
 
-  const response = await fetch(`${env.IPFS_GATEWAY}/api/v0/add`, {
+  const response = await fetch(`${env.IPFS_RPC}/api/v0/add`, {
     method: "POST",
     headers: form.getHeaders(),
     body: form,
@@ -79,7 +80,7 @@ export const DagPut = async (dag: any): Promise<string> => {
   const form = new FormData();
   const b = Buffer.from(JSON.stringify(dag));
   form.append("file", b);
-  const response = await fetch(`${env.IPFS_GATEWAY}/api/v0/dag/put`, {
+  const response = await fetch(`${env.IPFS_RPC}/api/v0/dag/put`, {
     method: "POST",
     headers: form.getHeaders(),
     body: form,
@@ -93,7 +94,7 @@ export const DagPut = async (dag: any): Promise<string> => {
 
 export const resolveImageUrl = async (cid: string, size: string): Promise<any> => {
   return new Promise((resolve, reject) => {
-    fetch(`${env.IPFS_GATEWAY}/api/v0/dag/resolve?arg=${cid}/Image/${size}`, {
+    fetch(`${env.IPFS_RPC}/api/v0/dag/resolve?arg=${cid}/Image/${size}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

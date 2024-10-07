@@ -9,8 +9,3 @@ services:
       dockerfile: ./docker/cdn.Dockerfile
     ports: 
       - "7654:7654"
-    networks: 
-      - cdn
-
-networks:
-  cdn: 

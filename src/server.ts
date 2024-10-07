@@ -11,6 +11,7 @@ import requestLogger from "@/common/middleware/requestLogger";
 import { env } from "@/common/utils/envConfig";
 import { imageRouter } from "./api/images/imgRouter";
 import { nftRouter } from "./api/nft/nftRouter";
+import { pinRouter } from "./api/pins/pinRouter";
 
 const logger = pino({ name: "server start" });
 const app: Express = express();
@@ -32,6 +33,7 @@ app.use(requestLogger);
 app.use("/health-check", healthCheckRouter);
 app.use("/api/v0/nft", nftRouter);
 app.use("/api/v0/image", imageRouter);
+app.use("/api/v0/pins", pinRouter);
 
 // Swagger UI
 app.use(openAPIRouter);
